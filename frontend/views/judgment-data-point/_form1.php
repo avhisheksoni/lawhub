@@ -18,6 +18,7 @@ if($_GET)
    
 }
 ?>
+<h2>lawhub</h2>
 <table>
 <?php
 $j_elements = JudgmentElement::find('element_name,element_text')->where(['judgment_code'=>$jcode])->all();
