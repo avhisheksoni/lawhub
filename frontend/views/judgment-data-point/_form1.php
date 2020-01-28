@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
    
 if($_GET)
 {
-    $jcode = $_GET['jcode'];
+     $jcode = $_GET['jcode']; 
    
    
 }
@@ -21,15 +21,20 @@ if($_GET)
 <table>
 <?php
 $j_elements = JudgmentElement::find('element_name,element_text')->where(['judgment_code'=>$jcode])->all();
+// echo "<pre>";
+// print_r($j_elements); die;
+$j=0;
 foreach($j_elements as $jud_element){
 
 ?>
 
     <tr>
-        <td><?php echo $jud_element->element_name; ?><span> &nbsp;&nbsp;: &nbsp;&nbsp;</span></td> 
-        <td><?php echo $jud_element->element_text; ?></td>
+        <td><input type="hidden" id="element" value="<?= $jud_element->id; ?>"><?= $jud_element->element_name; ?><span> &nbsp;&nbsp;: &nbsp;&nbsp;</span></td> 
+        <td><?= $jud_element->element_text; ?></td>
+        <td><input type="text" id="<?= "weight_perc".$j ?>" value="<?= $jud_element->weight_perc; ?>"></td>
     </tr>
-<?php } ?>
+    
+<?php $j++; } ?>
 </table>
 <div class="judgment-data-point-form">
 
@@ -37,8 +42,8 @@ foreach($j_elements as $jud_element){
     <div id="test_div"></div>
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Information</h4></div>
+   <!--  <div class="">
+        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Information</h4></div> -->
         <div class="panel-body">
              <?php DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -58,108 +63,136 @@ foreach($j_elements as $jud_element){
                 ],
             ]); ?>
 
-            <div class="container-items"><!-- widgetContainer -->
+  <div class="container-items"><!-- widgetContainer -->
             <?php foreach ($models as $i => $modelAddress): ?>
-                <div class="item panel panel-default"><!-- widgetBody -->
-                    <div class="panel-heading">
-                        <h3 class="panel-title pull-left"></h3>
-                        <div class="pull-right">
-                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="panel-body">
+                <div class="item panel panel-defaultt"><!-- widgetBody -->
+                  <div class="clearfix"></div>
+                    <div class="panel-body" style="padding: 0px;">
                         <?php
                             // necessary for update action.
                             if (! $modelAddress->isNewRecord) {
                                 echo Html::activeHiddenInput($modelAddress, "[{$i}]id");
                             }
-                           /* $element  = ArrayHelper::map(JudgmentElement::find()->all(), 'element_code', 'element_name'); */
                           $element  =  ArrayHelper::map(JudgmentElement::find()->where('judgment_code = :judgment_code', [':judgment_code' => $jcode])->all(),'element_code','element_name');
                             ?>
-                             
-                         <div class="row">
-                            <div class="col-sm-4">
-                               
-                                
-                            </div>
-                            <div class="col-sm-2">
-                                 <?php
- /* echo $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element, ['prompt' => '','class'=>'form-control-dp'],['onchange' => '$.post("'.Yii::$app->urlManager->createUrl(["judgment-data-point/dp"]).'", function( data ) {
-
-      
-     })'])*/;?>
-        <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp'/*,'ajax'=>[
-                                     'type'=>'GET',
-                                     'id'=>'$(this).val()',
-                                     'url'=>'/advanced_yii/judgment-data-point/dp?id=+id',
-
-                                    ]*/
-])->label('Element Name'); ?>
-
-
-
-<?php
-     /* echo   $form->field($modelAddress, '[{$i}]element_code')->dropDownList(
-          $element,
-        ['onchange' => '$.post("'.Yii::$app->urlManager->createUrl(["judgment-data-point/dp"]).'", function( data ) {
-
-      $("#test_div").append( data );
-     })']);*/
-        ?>
-
-                     
-                             </div>
-                             
-
-                              <div class="col-sm-2">
-                                <?= $form->field($modelAddress, "[{$i}]data_point")->textInput(['maxlength' => true]) ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <?= $form->field($modelAddress, "[{$i}]weight_perc")->textInput(['class'=>'form-wt']) ?>
-                                 
-                             </div>
-                             <div class="col-sm-1">
+        <div class="row">
+               <div class="col-sm-3">
+                <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp','ajax'=>[
+                                           'type'=>'GET',
+                                           'id'=>'$(this).val()',
+                                           'url'=>'/advanced_yii/judgment-data-point/dp?id=+id',]])->label('Element Name'); ?>
+                </div>
+                <div class="col-sm-3">
+                  <?= $form->field($modelAddress, "[{$i}]data_point",['inputOptions' => [
+'autocomplete' => 'off']])->textInput(['maxlength' => true]) ?>    
+                </div>
+                <div class="col-sm-2">
+                    <?= $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off']])->textInput() ?>
+                </div>
+                 <div class="col-sm-1">
                                 <label>Total %</label>
                                 <input type="text" name="" value="">
                                  
                              </div>
-                            
-                        </div><!-- .row -->
+               <div class="col-sm-3" style="margin-top: 25px;">
+                 <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+               </div>
+        </div><!-- .row -->
       
                     </div>
                 </div>
             <?php endforeach; ?>
-            </div>
+  </div>
             <?php DynamicFormWidget::end(); ?>
         </div>
-    </div>
+    <!-- </div> -->
 
     <div class="form-group">
-        <?= Html::submitButton($modelAddress->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton($modelAddress->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary','id'=>'test']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+<!-- <script type="text/javascript">
+   
+    $(".dynamicform_wrapper").on("beforeInsert", function(e, item) {
+    console.log("beforeInsert");
+});
+
+$(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+    console.log("afterInsert");
+});
+
+$(".dynamicform_wrapper").on("beforeDelete", function(e, item) {
+    if (! confirm("Are you sure you want to delete this item?")) {
+        return false;
+    }
+    return true;
+});
+
+$(".dynamicform_wrapper").on("afterDelete", function(e) {
+    console.log("Deleted item!");
+});
+
+$(".dynamicform_wrapper").on("limitReached", function(e, item) {
+    alert("Limit reached");
+});
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+       $('.form-control-dp').on('change', function() {
+            
+           var ids = $(this).attr("id");
+            var id = $(this).val();
+            //console.log('IDS',ids);
 
 
-<?php
- $customScript = <<< SCRIPT
- $(document).ready(function() {
- $(document).on('change', '.form-control-dp', function(){
-    var ids = $(this).attr("id");
-    var id = $(this).val();
-    console.log('IDS',id);
+        });
+
+});
+</script> -->
+<!-- <script type="text/javascript">
+    $(document).ready(function(){
+       var field = 0;
+       $(document).on('blur', '.perc', function(){
+       //$(".perc").on('blur', function() {
+        var owp = document.getElementById('weight_perc'+field).value;
+        var element = document.getElementById('element').value;
+        var selement = document.getElementById('judgmentdatapoint-0-element_code').value;
+        //console.log(selement);
+                var total= 0;
+                $(".perc").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total +=parseFloat(inputval);
+                    }
+                        });
+              if(owp >= total){
+                console.log("true");
+              }else{
+                console.log("false");
+              }
+       
+       });
+});
+</script> -->
+
+<script>
+  $(document).ready(function(){
+    $(document).on('change', '.form-control-dp', function(){
+       var ids = $(this).attr("id");
+       var split = ids.split("element_code");
+       var getstaticid = "#"+split[0];
+       var wight_c = "weight"+$(this).val();
+       var datapoint_c = "datapoint"+$(this).val();
+       var judgment_weight = getstaticid+'weight_perc';
+       var judgment_datapoint = getstaticid+'data_point';
+       console.log(judgment_datapoint);
+        $(judgment_weight).addClass(wight_c);
+        $(judgment_datapoint).addClass(datapoint_c);
+        });
     });
-    var wtper = 50;
-   $(document).on('keyup', '.form-wt', function(){
-    var idss = $(this).attr("id");
-    var idnew = $(this).val();
-    console.log('wtper',idnew);
-    });
-  });
- SCRIPT;
-  $this->registerJs($customScript, \yii\web\View::POS_READY);
- ?>
+</script>

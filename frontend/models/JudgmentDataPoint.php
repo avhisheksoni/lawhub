@@ -30,7 +30,9 @@ class JudgmentDataPoint extends \yii\db\ActiveRecord
     {
         return [
             [['judgment_code', 'element_code'], 'integer'],
-            [['element_name', 'data_point'], 'required'],
+            [['element_name', 'data_point', 'weight_perc'], 'required'],
+            [['weight_perc'], 'number'],
+            [['username'], 'string', 'max' => 50],
             [['element_name'], 'string', 'max' => 25],
             [['data_point'], 'string', 'max' => 15],
         ];
