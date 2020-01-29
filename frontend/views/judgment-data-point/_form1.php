@@ -21,9 +21,12 @@ if($_GET)
 <table>
 <?php
 $j_elements = JudgmentElement::find('element_name,element_text')->where(['judgment_code'=>$jcode])->all();
+$count = JudgmentElement::find('element_name,element_text')->where(['judgment_code'=>$jcode])->count();
+
 // echo "<pre>";
-// print_r($j_elements); die;
+// print_r($count); die;
 $j=0;
+
 foreach($j_elements as $jud_element){
 
 ?>
@@ -31,10 +34,11 @@ foreach($j_elements as $jud_element){
     <tr>
         <td><input type="hidden" id="element" value="<?= $jud_element->id; ?>"><?= $jud_element->element_name; ?><span> &nbsp;&nbsp;: &nbsp;&nbsp;</span></td> 
         <td><?= $jud_element->element_text; ?></td>
-        <td><input type="text" id="<?= "weight_perc".$j ?>" value="<?= $jud_element->weight_perc; ?>"></td>
+        <td><input type="text" id="<?= "weight_perc".$j ?>" class="weight_perc" value="<?= $jud_element->weight_perc; ?>"></td>
     </tr>
     
 <?php $j++; } ?>
+<input type="hidden" id="count" value="<?= $count; ?>">
 </table>
 <div class="judgment-data-point-form">
 
@@ -88,7 +92,7 @@ foreach($j_elements as $jud_element){
                 </div>
                 <div class="col-sm-2">
                     <?= $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
-'autocomplete' => 'off']])->textInput() ?>
+'autocomplete' => 'off']])->textInput(['onblur'=> "match()"]) ?>
                 </div>
                  <div class="col-sm-1">
                                 <label>Total %</label>
@@ -190,9 +194,124 @@ $(".dynamicform_wrapper").on("limitReached", function(e, item) {
        var datapoint_c = "datapoint"+$(this).val();
        var judgment_weight = getstaticid+'weight_perc';
        var judgment_datapoint = getstaticid+'data_point';
-       console.log(judgment_datapoint);
         $(judgment_weight).addClass(wight_c);
         $(judgment_datapoint).addClass(datapoint_c);
         });
     });
+</script>
+<script>
+function match(id)
+{
+// alert(id)
+  var count = document.getElementById('count').value;
+  //  for(var i=0; i<=(count-1); i++){
+    var i=0;
+$(".weight_perc").each(function(){
+   var count_weight = document.getElementById('weight_perc'+i).value;
+  var elementname = document.getElementById('judgmentdatapoint-0-element_code').value;
+  //console.log(count_weight);
+  // if(elementname == '2'){
+    var total= 0;
+    $(".weight1").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total +=parseFloat(inputval);
+                    }
+                        });
+  if(count_weight >= total){
+      console.log("true");
+   }else{
+    console.log("false");
+   }
+   var total2= 0;
+   
+      var k =0;
+    $(".weight2").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total2 +=parseFloat(inputval);
+                    }
+   if(count_weight >= total2){
+    
+      console.log("true");
+   }else{
+    var minus = k-1;
+    var thisid = "#judgmentdatapoint-"+k+"-weight_perc";
+    console.log(thisid);
+    $(thisid).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
+  }
+    k++;});
+
+   
+
+   
+    
+
+  var total4= 0;
+
+   var n =0;
+    $(".weight4").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total4 +=parseFloat(inputval);
+                    }
+                        
+    if(count_weight >= total4){
+      
+      console.log("true");
+   }else{
+    var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
+    console.log(thisid);
+    $(thisid).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
+    
+
+   }
+   n++;});
+//}
+var total3= 0;
+    $(".weight3").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total3 +=parseFloat(inputval);
+                    }
+                        });
+   if(count_weight >= total3){
+      console.log("true");
+   }else{
+    console.log("false");
+   }
+
+    var total5= 0;
+    $(".weight5").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total5 +=parseFloat(inputval);
+                    }
+                        });
+    if(count_weight >= total5){
+      console.log("true");
+   }else{
+    console.log("false");
+   }
+
+    var total6= 0;
+    $(".weight6").each(function(){
+                    var inputval= $(this).val();
+                    if($.isNumeric(inputval)){
+                        total6 +=parseFloat(inputval);
+                    }
+                        });
+    if(count_weight >= total6){
+      console.log("true");
+   }else{
+    console.log("false");
+   }
+             
+ i++ });
+
+}
+
 </script>
