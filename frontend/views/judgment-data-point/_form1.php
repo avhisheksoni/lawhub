@@ -92,11 +92,11 @@ foreach($j_elements as $jud_element){
                 </div>
                 <div class="col-sm-2">
                     <?= $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
-'autocomplete' => 'off']])->textInput(['onblur'=> "match()"]) ?>
+'autocomplete' => 'off']])->textInput(['onblur'=> "match(this.id)"]) ?>
                 </div>
                  <div class="col-sm-1">
                                 <label>Total %</label>
-                                <input type="text" name="" value="">
+                                <input type="text"  name="" value="">
                                  
                              </div>
                <div class="col-sm-3" style="margin-top: 25px;">
@@ -187,7 +187,7 @@ $(".dynamicform_wrapper").on("limitReached", function(e, item) {
 <script>
   $(document).ready(function(){
     $(document).on('change', '.form-control-dp', function(){
-       var ids = $(this).attr("id");
+       var ids = $(this).attr("id"); 
        var split = ids.split("element_code");
        var getstaticid = "#"+split[0];
        var wight_c = "weight"+$(this).val();
@@ -200,54 +200,53 @@ $(".dynamicform_wrapper").on("limitReached", function(e, item) {
     });
 </script>
 <script>
-function match(id)
-{
-// alert(id)
-  var count = document.getElementById('count').value;
-  //  for(var i=0; i<=(count-1); i++){
-    var i=0;
-$(".weight_perc").each(function(){
-   var count_weight = document.getElementById('weight_perc'+i).value;
-  var elementname = document.getElementById('judgmentdatapoint-0-element_code').value;
-  //console.log(count_weight);
-  // if(elementname == '2'){
-    var total= 0;
+function match(id){
+  alert($(this).attr('id'));
+     var count = document.getElementById('count').value;
+     console.log(count);
+var i=0;
+if(count=='6'){
+   var count_weight = document.getElementById('weight_perc0').value;var count_weight1 = document.getElementById('weight_perc1').value;var count_weight2 = document.getElementById('weight_perc2').value;var count_weight3 = document.getElementById('weight_perc3').value;var count_weight4 = document.getElementById('weight_perc4').value;var count_weight5 = document.getElementById('weight_perc5').value;}else if(count=='5'){var count_weight = document.getElementById('weight_perc0').value;var count_weight1 = document.getElementById('weight_perc1').value;var count_weight2 = document.getElementById('weight_perc2').value;var count_weight3 = document.getElementById('weight_perc3').value;var count_weight4 = document.getElementById('weight_perc4').value; }else if(count=='4'){var count_weight = document.getElementById('weight_perc0').value;var count_weight1 = document.getElementById('weight_perc1').value;var count_weight2 = document.getElementById('weight_perc2').value;var count_weight3 = document.getElementById('weight_perc3').value;}else if(count=='3'){var count_weight = document.getElementById('weight_perc0').value;var count_weight1 = document.getElementById('weight_perc1').value;var count_weight2 = document.getElementById('weight_perc2').value;}else if(count=='2'){var count_weight = document.getElementById('weight_perc0').value;var count_weight1 = document.getElementById('weight_perc1').value;}else if(count == '1'){var count_weight = document.getElementById('weight_perc0').value;}
+  var total= 0;
+  var k =0;
     $(".weight1").each(function(){
                     var inputval= $(this).val();
                     if($.isNumeric(inputval)){
                         total +=parseFloat(inputval);
                     }
-                        });
-  if(count_weight >= total){
+                    console.log(total);
+   if(count_weight >= total){
       console.log("true");
    }else{
+   var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
+    console.log(thisid);
+     $(this).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
     console.log("false");
-   }
+  }
+    k++;});
+    
    var total2= 0;
-   
       var k =0;
     $(".weight2").each(function(){
                     var inputval= $(this).val();
                     if($.isNumeric(inputval)){
                         total2 +=parseFloat(inputval);
                     }
-   if(count_weight >= total2){
+                    console.log(total2);
+   if(count_weight1 >= total2){
     
       console.log("true");
    }else{
-    var minus = k-1;
-    var thisid = "#judgmentdatapoint-"+k+"-weight_perc";
+   var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
     console.log(thisid);
-    $(thisid).val(""); 
+     $(this).val(""); 
     confirm("Check Weight percentage excess Data Element Weight percentage");
+    console.log("false");
   }
     k++;});
-
-   
-
-   
-    
-
   var total4= 0;
 
    var n =0;
@@ -256,62 +255,98 @@ $(".weight_perc").each(function(){
                     if($.isNumeric(inputval)){
                         total4 +=parseFloat(inputval);
                     }
-                        
-    if(count_weight >= total4){
+                  console.log(total4);      
+    if(count_weight3 >= total4){
       
-      console.log("true");
+      console.log("true3");
    }else{
+
     var minus = n-1;
     var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
     console.log(thisid);
-    $(thisid).val(""); 
+     $(this).val(""); 
     confirm("Check Weight percentage excess Data Element Weight percentage");
+    console.log("false3");
     
 
    }
    n++;});
-//}
 var total3= 0;
+
+   var n =0;
     $(".weight3").each(function(){
                     var inputval= $(this).val();
                     if($.isNumeric(inputval)){
                         total3 +=parseFloat(inputval);
                     }
-                        });
-   if(count_weight >= total3){
-      console.log("true");
+                  console.log(total3);      
+    if(count_weight2 >= total3){
+      
+      console.log("true3");
    }else{
-    console.log("false");
-   }
 
-    var total5= 0;
+    var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
+    console.log(thisid);
+     $(this).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
+    console.log("false3");
+    
+
+   }
+   n++;});
+
+var total5= 0;
+
+   var n =0;
     $(".weight5").each(function(){
                     var inputval= $(this).val();
                     if($.isNumeric(inputval)){
                         total5 +=parseFloat(inputval);
                     }
-                        });
-    if(count_weight >= total5){
-      console.log("true");
+                  console.log(total5);      
+    if(count_weight4 >= total5){
+      
+      console.log("true3");
    }else{
-    console.log("false");
-   }
 
-    var total6= 0;
+    var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
+    console.log(thisid);
+     $(this).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
+    console.log("false3");
+    
+
+   }
+   n++;});
+
+var total6= 0;
+
+   var n =0;
     $(".weight6").each(function(){
                     var inputval= $(this).val();
                     if($.isNumeric(inputval)){
                         total6 +=parseFloat(inputval);
                     }
-                        });
-    if(count_weight >= total6){
-      console.log("true");
+                  console.log(total6);      
+    if(count_weight5 >= total6){
+      
+      console.log("true3");
    }else{
-    console.log("false");
+
+    var minus = n-1;
+    var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
+    console.log(thisid);
+     $(this).val(""); 
+    confirm("Check Weight percentage excess Data Element Weight percentage");
+    console.log("false3");
+    
+
    }
+   n++;});
              
- i++ });
+ i++ //});
 
 }
-
 </script>
