@@ -124,18 +124,9 @@ foreach($j_elements as $jud_element){
 <script>
   $(document).ready(function(){
     $(document).on('change', '.form-control-dp', function(){
-       var idr = "#"+$(this).attr("id"); 
        var ids = $(this).attr("id"); 
-          //judgmentdatapoint-0-weight_perc
        var split = ids.split("element_code");
        var getstaticid = "#"+split[0];
-       var removecls = getstaticid+"weight_perc";
-       $(removecls).removeClass("weight1");
-       $(removecls).removeClass("weight2");
-       $(removecls).removeClass("weight3");
-       $(removecls).removeClass("weight4");
-       $(removecls).removeClass("weight5");
-       $(removecls).removeClass("weight6");
        var wight_c = "weight"+$(this).val();
        var datapoint_c = "datapoint"+$(this).val();
        var judgment_weight = getstaticid+'weight_perc';
@@ -145,9 +136,6 @@ foreach($j_elements as $jud_element){
         });
     });
 </script>
-
-
-
 <script>
 function match(id){
   //alert($(this).attr('id'));
@@ -160,6 +148,7 @@ function match(id){
           var split = nandweig.split("-");
           var ele_id = split[1];
           var ele_weight = split[0];
+     //console.log(ele_weight);
       if(ele_id=="FACTS" && ele_weight != ''){
       var total= 0;
   var k =0;

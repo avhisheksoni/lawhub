@@ -160,7 +160,7 @@ foreach($j_elements as $jud_element){
 function match(id){
     var count = document.getElementById('count').value;
       for(var t=0; t<count ;t++){
-          name_id= "weight_perc"+t;
+          var name_id= "weight_perc"+t;
           var element = "element"+t;
           var nandweig = document.getElementById(name_id).value;
           var name = document.getElementById(element).value;
@@ -277,19 +277,101 @@ function match(id){
 </script>
 <script>
   function checkslug(id){
-    var count = document.getElementById('count').value;
+    var ele_count = document.getElementById('count').value;
     var split = id.split("-");
     var count = split[1];
-    var countp = count-1;
-    var name = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
-    var namep = document.getElementById("judgmentdatapoint-"+countp+"-data_point").value
-    console.log(namep);
-    if(name == namep){
-       $(this).val(""); 
-
+    var countP = count-1;
+    if(count == "0"){
+    var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
+    var  Prevrow = "free";
     }else{
-      console.log("false");
+      var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
+     var  Prevrow = document.getElementById("judgmentdatapoint-"+countP+"-data_point").value
+     var  firstelement = document.getElementById("judgmentdatapoint-"+count+"-element_code").value
+     var  Prevelement = document.getElementById("judgmentdatapoint-"+countP+"-element_code").value
     }
+      if(firstelement == Prevelement && firstrow != Prevrow){
+          save = firstrow;
+
+          $('.datapoint1').each(function(){
+            var datapointid ="#judgmentdatapoint-"+countP+"-data_point";
+           var textvalue = $(datapointid).val();
+
+             console.log(textvalue);
+          })
+           
+              // console.log("true");
+      }else if(firstelement != Prevelement && firstrow == Prevrow){
+                console.log("true");
+      }else if(firstelement == Prevelement || firstrow == Prevrow){
+           
+           
+
+
+
+
+
+
+           if(firstelement == '1'){
+          var i = count;
+         $(".datapoint1").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+count+"-data_point";
+           var textvalue = $(datapointid).val();
+           if(inputtext == textvalue)
+           $(datapointid).val(""); 
+           console.log(datapointid);
+           console.log(inputtext+textvalue);
+         i++ });
+       }
+
+
+
+
+
+
+       else if(firstelement == '2'){
+         $(".datapoint2").each(function(){
+
+          console.log("faol22");
+           
+         });
+         }else if(firstelement == '3'){
+         $(".datapoint3").each(function(){
+
+          console.log("faol33");
+           
+         });
+         }else if(firstelement == '4'){
+         $(".datapoint4").each(function(){
+
+          console.log("faol44");
+           
+         });
+         }else if(firstelement == '5'){
+         $(".datapoint5").each(function(){
+
+          console.log("faol55");
+           
+         });
+         }else if(firstelement == '6'){
+         $(".datapoint6").each(function(){
+
+          console.log("faol66");
+           
+         });
+         }
+
+       
+
+
+
+       }
+
+
+
+
+    
   }
 
 </script>
