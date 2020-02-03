@@ -284,89 +284,153 @@ function match(id){
     if(count == "0"){
     var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
     var  Prevrow = "free";
+    var firstelement = 'element';
+    var Prevelement = 'element';
     }else{
-      var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
+     var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
      var  Prevrow = document.getElementById("judgmentdatapoint-"+countP+"-data_point").value
      var  firstelement = document.getElementById("judgmentdatapoint-"+count+"-element_code").value
      var  Prevelement = document.getElementById("judgmentdatapoint-"+countP+"-element_code").value
     }
-      if(firstelement == Prevelement && firstrow != Prevrow){
-          save = firstrow;
 
-          $('.datapoint1').each(function(){
-            var datapointid ="#judgmentdatapoint-"+countP+"-data_point";
-           var textvalue = $(datapointid).val();
+       if(firstelement == Prevelement){
+           if(Prevrow =="free" || firstrow != Prevrow){
 
-             console.log(textvalue);
-          })
-           
-              // console.log("true");
-      }else if(firstelement != Prevelement && firstrow == Prevrow){
-                console.log("true");
-      }else if(firstelement == Prevelement || firstrow == Prevrow){
-           
-           
-
-
-
-
-
-
-           if(firstelement == '1'){
-          var i = count;
-         $(".datapoint1").each(function(){
+                true;
+            }else{
+                 var product_arr = [];  
+             var i = count;
+             var p = 0;
+           $(".datapoint1").each(function(){
            var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+count+"-data_point";
+           var datapointid ="#judgmentdatapoint-"+i+"-data_point";
            var textvalue = $(datapointid).val();
-           if(inputtext == textvalue)
-           $(datapointid).val(""); 
-           console.log(datapointid);
-           console.log(inputtext+textvalue);
-         i++ });
-       }
+          if(inputtext == textvalue){
+            confirm("You can not Fill Same text for same Data Element");
+           $(datapointid).val("");
+           }else{
+            product_arr[p++] = textvalue;
+            confirm("not same");
+           } 
+           // console.log(i);
+           // console.log(inputtext+" - "+textvalue);
+          });
+          console.log(product_arr);
+            i--; 
+
+          var j = count;
+           $(".datapoint2").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+j+"-data_point";
+           var textvalue = $(datapointid).val();
+          if(inputtext == textvalue){
+           $(datapointid).val("");
+           } 
+           console.log(j);
+           console.log(inputtext+" - "+textvalue);
+          });
+            j--;
+
+          var k = count;
+           $(".datapoint3").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+k+"-data_point";
+           var textvalue = $(datapointid).val();
+          if(inputtext == textvalue){
+           $(datapointid).val("");
+           } 
+           console.log(k);
+           console.log(inputtext+" - "+textvalue);
+          });
+            k--;
+
+          var l = count;
+           $(".datapoint4").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+l+"-data_point";
+           var textvalue = $(datapointid).val();
+          if(inputtext == textvalue){
+           $(datapointid).val("");
+           } 
+           console.log(l);
+           console.log(inputtext+" - "+textvalue);
+          });
+            l--;
+
+          var o = count;
+           $(".datapoint5").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+o+"-data_point";
+           var textvalue = $(datapointid).val();
+          if(inputtext == textvalue){
+           $(datapointid).val("");
+           } 
+           console.log(o);
+           console.log(inputtext+" - "+textvalue);
+          });
+            o--;
+        }
+      }else{
+        
+
+
+      }
+    
+      // else if(firstelement == Prevelement && firstrow == Prevrow){
+
+      //      if(firstelement == '1'){
+      //     var i = count;
+      //    $(".datapoint1").each(function(){
+      //      var inputtext= $(this).val();
+      //      var datapointid ="#judgmentdatapoint-"+count+"-data_point";
+      //      var textvalue = $(datapointid).val();
+      //      if(inputtext == textvalue)
+      //      $(datapointid).val(""); 
+      //      console.log(datapointid);
+      //      console.log(inputtext+textvalue);
+      //    i++ });
+      //  }
 
 
 
 
 
 
-       else if(firstelement == '2'){
-         $(".datapoint2").each(function(){
+      //  else if(firstelement == '2'){
+      //    $(".datapoint2").each(function(){
 
-          console.log("faol22");
+      //     console.log("faol22");
            
-         });
-         }else if(firstelement == '3'){
-         $(".datapoint3").each(function(){
+      //    });
+      //    }else if(firstelement == '3'){
+      //    $(".datapoint3").each(function(){
 
-          console.log("faol33");
+      //     console.log("faol33");
            
-         });
-         }else if(firstelement == '4'){
-         $(".datapoint4").each(function(){
+      //    });
+      //    }else if(firstelement == '4'){
+      //    $(".datapoint4").each(function(){
 
-          console.log("faol44");
+      //     console.log("faol44");
            
-         });
-         }else if(firstelement == '5'){
-         $(".datapoint5").each(function(){
+      //    });
+      //    }else if(firstelement == '5'){
+      //    $(".datapoint5").each(function(){
 
-          console.log("faol55");
+      //     console.log("faol55");
            
-         });
-         }else if(firstelement == '6'){
-         $(".datapoint6").each(function(){
+      //    });
+      //    }else if(firstelement == '6'){
+      //    $(".datapoint6").each(function(){
 
-          console.log("faol66");
+      //     console.log("faol66");
            
-         });
-         }
-
-       
-
-
-
-       }
+      //    });
+      //    }
+       //}
+       // else{
+       //  console.log("rtyr");
+       // }
 
 
 
