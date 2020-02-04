@@ -295,7 +295,16 @@ function match(id){
 
        if(firstelement == Prevelement){
            if(Prevrow =="free" || firstrow != Prevrow){
+           var i = count;
+            $(".datapoint1").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+i+"-data_point";
+           var textvalue = $(datapointid).val();
+            console.log(inputtext+" "+textvalue);
 
+           console.log(id);
+              
+         });i--;
                 true;
             }else{
                  var product_arr = [];  
@@ -307,7 +316,7 @@ function match(id){
            var textvalue = $(datapointid).val();
           if(inputtext == textvalue){
             confirm("You can not Fill Same text for same Data Element");
-           $(datapointid).val("");
+           $(".datapoint1").val("");
            }else{
             product_arr[p++] = textvalue;
             confirm("not same");
@@ -324,7 +333,8 @@ function match(id){
            var datapointid ="#judgmentdatapoint-"+j+"-data_point";
            var textvalue = $(datapointid).val();
           if(inputtext == textvalue){
-           $(datapointid).val("");
+             confirm("You can not Fill Same text for same Data Element");
+           $(".datapoint2").val("");
            } 
            console.log(j);
            console.log(inputtext+" - "+textvalue);
@@ -337,7 +347,8 @@ function match(id){
            var datapointid ="#judgmentdatapoint-"+k+"-data_point";
            var textvalue = $(datapointid).val();
           if(inputtext == textvalue){
-           $(datapointid).val("");
+            confirm("You can not Fill Same text for same Data Element");
+           $(".datapoint3").val("");
            } 
            console.log(k);
            console.log(inputtext+" - "+textvalue);
@@ -350,7 +361,8 @@ function match(id){
            var datapointid ="#judgmentdatapoint-"+l+"-data_point";
            var textvalue = $(datapointid).val();
           if(inputtext == textvalue){
-           $(datapointid).val("");
+            confirm("You can not Fill Same text for same Data Element");
+           $(".datapoint4").val("");
            } 
            console.log(l);
            console.log(inputtext+" - "+textvalue);
@@ -363,7 +375,22 @@ function match(id){
            var datapointid ="#judgmentdatapoint-"+o+"-data_point";
            var textvalue = $(datapointid).val();
           if(inputtext == textvalue){
-           $(datapointid).val("");
+            confirm("You can not Fill Same text for same Data Element");
+           $(".datapoint5").val("");
+           } 
+           console.log(o);
+           console.log(inputtext+" - "+textvalue);
+          });
+            o--;
+
+            var o = count;
+           $(".datapoint6").each(function(){
+           var inputtext= $(this).val();
+           var datapointid ="#judgmentdatapoint-"+o+"-data_point";
+           var textvalue = $(datapointid).val();
+          if(inputtext == textvalue){
+            confirm("You can not Fill Same text for same Data Element");
+           $(".datapoint6").val("");
            } 
            console.log(o);
            console.log(inputtext+" - "+textvalue);
@@ -371,70 +398,10 @@ function match(id){
             o--;
         }
       }else{
-        
-
-
+         true;
       }
     
-      // else if(firstelement == Prevelement && firstrow == Prevrow){
-
-      //      if(firstelement == '1'){
-      //     var i = count;
-      //    $(".datapoint1").each(function(){
-      //      var inputtext= $(this).val();
-      //      var datapointid ="#judgmentdatapoint-"+count+"-data_point";
-      //      var textvalue = $(datapointid).val();
-      //      if(inputtext == textvalue)
-      //      $(datapointid).val(""); 
-      //      console.log(datapointid);
-      //      console.log(inputtext+textvalue);
-      //    i++ });
-      //  }
-
-
-
-
-
-
-      //  else if(firstelement == '2'){
-      //    $(".datapoint2").each(function(){
-
-      //     console.log("faol22");
-           
-      //    });
-      //    }else if(firstelement == '3'){
-      //    $(".datapoint3").each(function(){
-
-      //     console.log("faol33");
-           
-      //    });
-      //    }else if(firstelement == '4'){
-      //    $(".datapoint4").each(function(){
-
-      //     console.log("faol44");
-           
-      //    });
-      //    }else if(firstelement == '5'){
-      //    $(".datapoint5").each(function(){
-
-      //     console.log("faol55");
-           
-      //    });
-      //    }else if(firstelement == '6'){
-      //    $(".datapoint6").each(function(){
-
-      //     console.log("faol66");
-           
-      //    });
-      //    }
-       //}
-       // else{
-       //  console.log("rtyr");
-       // }
-
-
-
-
+      
     
   }
 
