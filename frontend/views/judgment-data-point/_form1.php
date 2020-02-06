@@ -94,11 +94,11 @@ foreach($j_elements as $jud_element){
                     <?= $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
 'autocomplete' => 'off']])->textInput(['onblur'=> "match(this.id)"]) ?>
                 </div>
-                 <div class="col-sm-1">
+                <!--  <div class="col-sm-1">
                                 <label>Total %</label>
                                 <input type="text"  name="" value="">
                                  
-                             </div>
+                             </div> -->
                <div class="col-sm-3" style="margin-top: 25px;">
                  <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                </div>
@@ -181,7 +181,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+              confirm("FACTS weightage should be less than or equal "+ele_weight);
               }
               k++;});
       }else if(ele_id=="RULING" && ele_weight != ''){
@@ -198,7 +198,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+              confirm("RULING weightage should be less than or equal "+ele_weight);
               }
               k++;});
       }else if(ele_id == 'LEGAL ISSUES' && ele_weight != ''){
@@ -215,7 +215,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+              confirm("LEGAL ISSUES weightage should be less than or equal "+ele_weight);
               }
               n++;});
       }else if(ele_id == "ARGUMENTS" && ele_weight != ''){
@@ -232,7 +232,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+               confirm("ARGUMENTS weightage should be less than or equal "+ele_weight);
               }
               n++;});
 
@@ -250,7 +250,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+               confirm("EVIDENCE weightage should be less than or equal "+ele_weight);
               }
               n++;});
       }else if(ele_id == "CONCLUSION" && ele_weight != ''){
@@ -267,7 +267,7 @@ function match(id){
               var minus = n-1;
               var thisid = "#judgmentdatapoint-"+n+"-weight_perc";
               $(this).val(""); 
-              confirm("Check Weight percentage excess Data Element Weight percentage");
+             confirm("CONCLUSION weightage should be less than or equal "+ele_weight);
               }
               n++;});
 
@@ -276,133 +276,151 @@ function match(id){
 }
 </script>
 <script>
-  function checkslug(id){
-    var ele_count = document.getElementById('count').value;
-    var split = id.split("-");
-    var count = split[1];
-    var countP = count-1;
-    if(count == "0"){
-    var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
-    var  Prevrow = "free";
-    var firstelement = 'element';
-    var Prevelement = 'element';
-    }else{
-     var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
-     var  Prevrow = document.getElementById("judgmentdatapoint-"+countP+"-data_point").value
-     var  firstelement = document.getElementById("judgmentdatapoint-"+count+"-element_code").value
-     var  Prevelement = document.getElementById("judgmentdatapoint-"+countP+"-element_code").value
-    }
-
-       if(firstelement == Prevelement){
-           if(Prevrow =="free" || firstrow != Prevrow){
-           var i = count;
-            $(".datapoint1").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+i+"-data_point";
-           var textvalue = $(datapointid).val();
-            console.log(inputtext+" "+textvalue);
-
-           console.log(id);
-              
-         });i--;
-                true;
-            }else{
-                 var product_arr = [];  
-             var i = count;
-             var p = 0;
-           $(".datapoint1").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+i+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-            confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint1").val("");
-           }else{
-            product_arr[p++] = textvalue;
-            confirm("not same");
-           } 
-           // console.log(i);
-           // console.log(inputtext+" - "+textvalue);
-          });
-          console.log(product_arr);
-            i--; 
-
-          var j = count;
-           $(".datapoint2").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+j+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-             confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint2").val("");
-           } 
-           console.log(j);
-           console.log(inputtext+" - "+textvalue);
-          });
-            j--;
-
-          var k = count;
-           $(".datapoint3").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+k+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-            confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint3").val("");
-           } 
-           console.log(k);
-           console.log(inputtext+" - "+textvalue);
-          });
-            k--;
-
-          var l = count;
-           $(".datapoint4").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+l+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-            confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint4").val("");
-           } 
-           console.log(l);
-           console.log(inputtext+" - "+textvalue);
-          });
-            l--;
-
-          var o = count;
-           $(".datapoint5").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+o+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-            confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint5").val("");
-           } 
-           console.log(o);
-           console.log(inputtext+" - "+textvalue);
-          });
-            o--;
-
-            var o = count;
-           $(".datapoint6").each(function(){
-           var inputtext= $(this).val();
-           var datapointid ="#judgmentdatapoint-"+o+"-data_point";
-           var textvalue = $(datapointid).val();
-          if(inputtext == textvalue){
-            confirm("You can not Fill Same text for same Data Element");
-           $(".datapoint6").val("");
-           } 
-           console.log(o);
-           console.log(inputtext+" - "+textvalue);
-          });
-            o--;
+    function checkslug(id){
+      var ele_count = document.getElementById('count').value;
+      var split = id.split("-");
+      var count = split[1];
+      var countP = count-1;
+        if(count == "0"){
+      var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
+      var  Prevrow = "free";
+      var firstelement = 'element';
+      var Prevelement = 'element';
+        }else{
+      var firstrow = document.getElementById("judgmentdatapoint-"+count+"-data_point").value
+      var  Prevrow = document.getElementById("judgmentdatapoint-"+countP+"-data_point").value
+      var  firstelement = document.getElementById("judgmentdatapoint-"+count+"-element_code").value
+      var  Prevelement = document.getElementById("judgmentdatapoint-"+countP+"-element_code").value
         }
-      }else{
-         true;
-      }
-    
-      
-    
-  }
+        if(firstelement == Prevelement){
+            if(Prevrow =="free" || firstrow != Prevrow){
+                var i = count;
+                  for(var k=0; k<count; k++){
+                  var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
+                  var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
+                  if(inputtext == inputtext13){
+                      confirm("Data Point name Already Exist");
+                      if(firstelement == '1'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '2'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '3'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '4'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '5'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '6'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }
+
+                  }else{
+
+                  }
+                  }   true;
+            }else if(Prevrow =="free" || firstrow == Prevrow){
+            var i = count;
+                  for(var k=0; k<count; k++){
+                  var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
+                  var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
+                  if(inputtext == inputtext13){
+                      confirm("Data Point name Already Exist");
+                      if(firstelement == '1'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '2'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '3'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '4'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '5'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '6'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                  }
+
+                  }else{
+
+                  }
+                  }
+            }
+        }else{
+        if(Prevrow =="free" || firstrow != Prevrow){
+        var i = count;
+                for(var k=0; k<count; k++){
+                var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
+                var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
+                if(inputtext == inputtext13){
+                      confirm("Data Point name Already Exist");
+                      if(firstelement == '1'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '2'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '3'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '4'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '5'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      console.log(datap);
+                      }else if(firstelement == '6'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                }
+
+                }else{
+
+                }
+                }  
+        } else if(Prevrow =="free" || firstrow == Prevrow){
+          var i = count;
+                  for(var k=0; k<count; k++){
+                  var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
+                  var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
+                  if(inputtext == inputtext13){
+                      confirm("Data Point name Already Exist");
+                      if(firstelement == '1'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '2'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '3'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '4'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '5'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                      }else if(firstelement == '6'){
+                      var datap= "#judgmentdatapoint-"+count+"-data_point"
+                      $(datap).val("");
+                  }
+
+                  }else{
+
+                  }
+                  }
+        }
+        }
+    }
 
 </script>
