@@ -218,7 +218,6 @@ class JudgmentDataPointController extends Controller
 
         $count =  count($_POST['JudgmentDataPoint']['element_code']);
         for($i = 0; $i < $count; $i++) {
-
         $models = new JudgmentDataPoint();
         $models->judgment_code = $jcode;
        // $models->doc_id = $doc_id;
@@ -241,19 +240,38 @@ class JudgmentDataPointController extends Controller
     public function actionUpdate1($jcode="")
     {
         $username = \Yii::$app->user->identity->username;
-        //$models = JudgmentDataPoint::find()->indexBy('id')->all();
+        // $models = JudgmentDataPoint::find()->indexBy('id')->all();
         $models = JudgmentDataPoint::find()->where(['judgment_code' => $jcode])->all();
-
+         $countdb=count($models); 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+          $count=count($_POST['JudgmentDataPoint']); 
+            // echo "<pre>";
+            // print_r($models); die;
             foreach ($models as $model) {
-                $element = new ElementMast();
+            $element = new ElementMast();
             $element_name =  $element->getElementName($model->element_code);
             $model->element_name = $element_name ;
             $model->username = $username;
+
                 $model->save(false);
+            }
+            for($i =$countdb ; $i<$count ;$i++){
+             $models = new JudgmentDataPoint();
+             $ele_code = $_POST['JudgmentDataPoint'][$i]['element_code'];
+             $element = new ElementMast();
+             $element_name =  $element->getElementName($ele_code); 
+             $models->element_code =  $ele_code;
+             $models->element_name =  $element_name;
+             $models->data_point=$_POST['JudgmentDataPoint'][$i]['data_point'];
+             $models->weight_perc=$_POST['JudgmentDataPoint'][$i]['weight_perc'];
+             $models->username = $username; 
+             $models->judgment_code=$jcode;
+             $models->save(false);
+            
             }
             return $this->redirect('index');
         }
+        
 
         return $this->render('update1', ['models' => $models,'jcode'=>$jcode]);
     }
