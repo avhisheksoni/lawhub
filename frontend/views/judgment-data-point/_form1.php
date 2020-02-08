@@ -68,6 +68,9 @@ foreach($j_elements as $jud_element){
             ]); ?>
 
   <div class="container-items"><!-- widgetContainer -->
+    <?php $count_row = count($models); 
+    if($count_row == '1'){
+    ?>
             <?php foreach ($models as $i => $modelAddress): ?>
                 <div class="item panel panel-defaultt"><!-- widgetBody -->
                   <div class="clearfix"></div>
@@ -106,7 +109,72 @@ foreach($j_elements as $jud_element){
       
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach;   } else {  ?>
+               <?php foreach ($models as $i => $modelAddress):  ?>
+                <div class="item panel panel-defaultt"><!-- widgetBody -->
+                  <div class="clearfix"></div>
+                    <div class="panel-body" style="padding: 0px;">
+                        <?php
+                            // necessary for update action.
+                            if (! $modelAddress->isNewRecord) {
+                                echo Html::activeHiddenInput($modelAddress, "[{$i}]id");
+                            }
+                          $element  =  ArrayHelper::map(JudgmentElement::find()->where('judgment_code = :judgment_code', [':judgment_code' => $jcode])->all(),'element_code','element_name');
+                            ?>
+        <div class="row">
+               <div class="col-sm-3">
+                <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp','ajax'=>[
+                                           'type'=>'GET',
+                                           'id'=>'$(this).val()',
+                                           'url'=>'/advanced_yii/judgment-data-point/dp?id=+id',]])->label('Element Name'); ?>
+                </div>
+                <div class="col-sm-3">
+                  <?= $form->field($modelAddress, "[{$i}]data_point",['inputOptions' => [
+'autocomplete' => 'off']])->textInput(['maxlength' => true, 'onblur' => "checkslug(this.id)"]) ?> 
+
+                </div>
+                <div class="col-sm-2">
+
+
+                  <?php  $ele_name = $modelAddress->element_name ;
+                  if($ele_name == 'FACTS') { 
+                   echo $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight1']])->textInput(['onblur'=> "match(this.id)"]);
+}else if($ele_name == 'RULING'){ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight2']])->textInput(['onblur'=> "match(this.id)"]); 
+ }else if($ele_name == 'LEGAL ISSUES'){ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight3']])->textInput(['onblur'=> "match(this.id)"]); 
+  }else if($ele_name == 'ARGUMENTS'){ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight4']])->textInput(['onblur'=> "match(this.id)"]); 
+  }else if($ele_name == 'EVIDENCE'){ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight5']])->textInput(['onblur'=> "match(this.id)"]); 
+  }else if($ele_name == 'CONCLUSION'){ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => 'weight6']])->textInput(['onblur'=> "match(this.id)"]);
+}else{ 
+  echo  $form->field($modelAddress, "[{$i}]weight_perc",['inputOptions' => [
+'autocomplete' => 'off','class' => '.none']])->textInput(['onblur'=> "match(this.id)"]);  
+} ?>
+
+                </div>
+                <!--  <div class="col-sm-1">
+                                <label>Total %</label>
+                                <input type="text"  name="" value="">
+                                 
+                             </div> -->
+               <div class="col-sm-3" style="margin-top: 25px;">
+                 <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+               </div>
+        </div><!-- .row -->
+      
+                    </div>
+                </div>
+            <?php endforeach;  } ?>
+
   </div>
             <?php DynamicFormWidget::end(); ?>
         </div>
