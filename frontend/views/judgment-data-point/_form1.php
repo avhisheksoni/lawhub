@@ -110,7 +110,8 @@ foreach($j_elements as $jud_element){
                     </div>
                 </div>
             <?php endforeach;   } else {  ?>
-               <?php foreach ($models as $i => $modelAddress):  ?>
+               <?php foreach ($models as $i => $modelAddress): ?>
+
                 <div class="item panel panel-defaultt"><!-- widgetBody -->
                   <div class="clearfix"></div>
                     <div class="panel-body" style="padding: 0px;">
@@ -167,7 +168,7 @@ foreach($j_elements as $jud_element){
                                  
                              </div> -->
                <div class="col-sm-3" style="margin-top: 25px;">
-                 <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                 <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button> <button type="button" class="remove-item btn btn-danger btn-xs" onclick="deleterow(<?= $modelAddress->id ?>)"><i class="glyphicon glyphicon-minus"></i></button>
                </div>
         </div><!-- .row -->
       
@@ -366,7 +367,9 @@ function match(id){
                   for(var k=0; k<count; k++){
                   var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
                   var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
-                  if(inputtext == inputtext13){
+                  var res = inputtext.toUpperCase();
+                  var res2 = inputtext13.toUpperCase();
+                  if(res == res2){
                       confirm("Data Point name Already Exist");
                       if(firstelement == '1'){
                       var datap= "#judgmentdatapoint-"+count+"-data_point"
@@ -397,7 +400,9 @@ function match(id){
                   for(var k=0; k<count; k++){
                   var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
                   var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
-                  if(inputtext == inputtext13){
+                  var res = inputtext.toUpperCase();
+                  var res2 = inputtext13.toUpperCase();
+                  if(res == res2){
                       confirm("Data Point name Already Exist");
                       if(firstelement == '1'){
                       var datap= "#judgmentdatapoint-"+count+"-data_point"
@@ -430,7 +435,9 @@ function match(id){
                 for(var k=0; k<count; k++){
                 var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
                 var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
-                if(inputtext == inputtext13){
+                var res = inputtext.toUpperCase();
+                  var res2 = inputtext13.toUpperCase();
+                  if(res == res2){
                       confirm("Data Point name Already Exist");
                       if(firstelement == '1'){
                       var datap= "#judgmentdatapoint-"+count+"-data_point"
@@ -461,7 +468,9 @@ function match(id){
                   for(var k=0; k<count; k++){
                   var inputtext= document.getElementById("judgmentdatapoint-"+count+"-data_point").value;
                   var inputtext13= document.getElementById("judgmentdatapoint-"+k+"-data_point").value;
-                  if(inputtext == inputtext13){
+                  var res = inputtext.toUpperCase();
+                  var res2 = inputtext13.toUpperCase();
+                  if(res == res2){
                       confirm("Data Point name Already Exist");
                       if(firstelement == '1'){
                       var datap= "#judgmentdatapoint-"+count+"-data_point"
@@ -491,4 +500,25 @@ function match(id){
         }
     }
 
+</script>
+
+<script>
+  function deleterow(id){
+    var idrow = id;
+    var boolean = confirm("Are You sure to Delete this Entry");
+      if(boolean == true){
+        $.ajax({
+                  url: "deleterow",
+                  type: "post",
+                  data : 'post_id='+ idrow,
+                  success: function(result){
+                      //alert(result);
+                    }
+                });
+      }else{
+
+         location.reload();
+
+      }
+  }
 </script>

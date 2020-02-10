@@ -277,6 +277,14 @@ class JudgmentDataPointController extends Controller
     }
     /* end of dynamic form updation code with dropdown*/
 
+    public function actionDeleterow(){
+               $id= $_POST['post_id'];
+        $x = Yii::$app->db->createCommand(" DELETE FROM judgment_data_point  WHERE id = '$id' 
+")->execute();  
+                 return "Entry Deleted";     
+         
+    }
+
     public function actionDp($id)
     {
       $element = JudgmentElement::find()->select(['element_text'])->where(['element_code'=>'$id'])->asArray()->all();
