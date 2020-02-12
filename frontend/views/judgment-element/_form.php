@@ -31,6 +31,7 @@ if($_GET)
       <th>Element Name </th>
       <th>Weitage % </th>
       <th>Element Text </th>
+      <!-- <th>Action</th> -->
     </tr>
   </thead>
   <tbody>
@@ -40,6 +41,7 @@ if($_GET)
       <td><?= $judgmentElementSingle->element_name ?></td>
       <td><?= $judgmentElementSingle->weight_perc ?></td>
       <td><?= $judgmentElementSingle->element_text ?></td>
+     <!--  <td><a href=<?= "update?jcode=".$judgmentElementSingle->id ?> ><button class="btn btn-success">Update</button></a></td> -->
     </tr>
     <?php } ?>
   </tbody>
@@ -47,19 +49,19 @@ if($_GET)
  <div class="judgment-element-form">
     <div class="container">
         <div class="row">
-
+<?php //print_r($model); die; ?>
            <div class="col-md-6">
             <?php $form = ActiveForm::begin();
 
-              $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
+              $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name');
 
               ?>
               <?= $form->field($model, 'judgment_code')->hiddenInput(['value'=>$jcode])->label(false); ?>
               <?= $form->field($model, 'element_code')->widget(Select2::classname(), [
                   'data' => $element,
-                  'options' => ['placeholder' => 'Select Judgment Element'],
+                  'options' => ['placeholder' => 'Select Judgment Element' ,'onchange'=>'getelementdetail()'],
                   'pluginEvents'=>[
-                    "select2:select" => "function() { var val = $(this).val();  
+                  "select2:select" => "function() { var val = $(this).val();  
               //console.log('val',val);              
               $('#judgmentelement-element_code').val(val);
               var jcode = $('#judgmentelement-judgment_code').val();
@@ -67,6 +69,7 @@ if($_GET)
                     $.ajax({
                       url      : '/advanced_yii/judgment-element/element?id='+val,
                      success  : function(data) {
+                      console.log(data);
                       let jdata = JSON.parse(data);
                       //console.log(typeof(jdata));
                       
@@ -118,3 +121,22 @@ $('#judgmentelement-weight_perc').on('keyup', function(){
     });
 SCRIPT;
 $this->registerJs($customScript, \yii\web\View::POS_READY);*/?>
+
+<script>
+  function getelementdetail(){
+    var element_id = document.getElementById('judgmentelement-element_code').value;
+    var judgment_code = document.getElementById('judgmentelement-judgment_code').value;
+    //console.log(element_id+" "+judgment_code);
+   $.ajax({
+                  url: "getdetail",
+                  type: "post",
+                 data : 'ele_id='+element_id+'&jug_code='+judgment_code,
+                  success: function(result){
+                    let jdata = JSON.parse(result);
+                      .each(function())
+                    }
+                });
+
+  }
+
+</script>

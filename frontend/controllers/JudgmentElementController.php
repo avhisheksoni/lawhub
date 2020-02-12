@@ -168,17 +168,27 @@ class JudgmentElementController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionElement($id)
+    public function actionElement($idjcode)
     {
        /*$query = new Query;
         $query->select('a.element_name,a.element_desc, b.element_text')->from(['element_mast a', 'judgment_element b'])->where(['a.element_code'=>'b.element_code']);*/
         //print_r($query);die;
         /* $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();*/
         //$element = JudgmentElement::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();
-       $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();
-     $result = Json::encode($element);
+        $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all(); 
+
+        $result = Json::encode($element);
 
      return $result;   
+    }
+
+    public function actionGetdetail(){
+        $ele_id = $_POST['ele_id'];
+        $jug_code = $_POST['jug_code'];
+        $judgment_element = JudgmentElement::find()->where(['element_code'=>$ele_id])->andwhere(['judgment_code'=>$jug_code])->one();
+        return $result = Json::encode($judgment_element);
+
+      
     }
 
 
